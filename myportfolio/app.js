@@ -29,7 +29,11 @@ app.use('/auth', auth);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(session({secret: 'cat'})); 
+app.use(session({secret: 'cat',
+    resave: false,
+    saveUnitialized: false,
+    cookie: {secure: false}
+})); 
 app.use(passport.initialize()); 
 app.use(passport.session()); 
 passport.serializeUser(function(user, done) { 
