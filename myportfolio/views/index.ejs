@@ -128,6 +128,28 @@
         font-weight: bold; 
       }
       
+      #comments-container {
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+
+      #not-logged {
+        color: red;
+        display: none;
+      }
+
+      .comment {
+        padding: 15px;
+        background-color: #f9f9f9; 
+        border-radius: 10px; 
+        margin-bottom: 10px;
+        font-size: 16px;
+        color: black;
+      }
     </style>
 
     <script type="module" defer src="https://cdn.jsdelivr.net/gh/imananoosheh/github-contributions-fetch@latest/github_calendar_widget.js"></script>
@@ -143,7 +165,9 @@
       <section id="about" class="about">
         <h2>About Me</h2>
         <p>
-          Hello! I’m Eduardo Eriyo Hirai and currently I’m a Computer Information Technology student at the British Columbia Institute of Technology.
+          Hello! My name is Eduardo Eriyo Hirai, and currently I'm a Computer Information Technology student at the British Columbia Institute of Technology.
+          I am an IT professional with previous experience in the health industry, and is continuously improving database, teamwork, 
+          and communication skills and is eager to apply them in a practical work environment to further develop them.
         </p>
       </section>
 
@@ -185,6 +209,7 @@
     </div>
 
     <div id="comment-section">
+      <span id="greeting" style="display: none;"></span>
       <h2>Write a comment</h2>
       <textarea id="user-comment" placeholder="Write your comment here..." disabled></textarea>
 
@@ -193,11 +218,54 @@
     </div>
 
     <div id="comments-container">
-        <h3>Comments:</h3>
+        <h2>Comments:</h2>
         <div id="user-comments"></div>
     </div>
 
-    <script></script>
+    <script>
+      function getUrlParameter(name) {
+          name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+          var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+          var results = regex.exec(location.search);
+          return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+      }
+
+      const userData = getUrlParameter('user');
+      const user = userData ? JSON.parse(userData) : null;
+      
+      function updateUI() {
+        if (user) {
+          document.getElementById('login-button').style.display = 'none';
+          document.getElementById('greeting').innerText = `Hello, ${user.displayName}!`;
+          document.getElementById('greeting').style.display = 'inline';
+        
+              document.getElementById('user-comment').disabled = false;
+              document.getElementById('post-button').disabled = false;
+              document.getElementById('not-logged').style.display = 'none';
+          } else {
+              document.getElementById('user-comment').disabled = true;
+              document.getElementById('post-button').disabled = true;
+              document.getElementById('not-logged').style.display = 'block';
+          }
+      }
+
+      updateUI();
+
+      document.getElementById('post-button').addEventListener('click', function() {
+          const comment = document.getElementById('user-comment').value;
+          if (comment) {
+              const new_comment = document.createElement('div');
+              new_comment.className = 'comment'; 
+              new_comment.textContent = comment;
+
+              document.getElementById('comments-container').appendChild(new_comment);
+
+              document.getElementById('user-comment').value = '';
+          } else {
+              alert('Write a comment first.');
+          }
+      });
+    </script>
   </body>
 
 </html>
