@@ -153,6 +153,7 @@
     </style>
 
     <script type="module" defer src="https://cdn.jsdelivr.net/gh/imananoosheh/github-contributions-fetch@latest/github_calendar_widget.js"></script>
+  
   </head>
   
   <body>
@@ -162,7 +163,7 @@
 
     <div class="container">
 
-      <section id="about" class="about">
+      <section class="about">
         <h2>About Me</h2>
         <p>
           Hello! My name is Eduardo Eriyo Hirai, and currently I'm a Computer Information Technology student at the British Columbia Institute of Technology.
@@ -171,7 +172,7 @@
         </p>
       </section>
 
-      <section id="projects" class="projects">
+      <section class="projects">
         <h2>Here are some of the projects I have worked on</h2>
         <div>
           <h3>Subtracker Billing App</h3>
@@ -204,6 +205,7 @@
       <div id="calendar-component" username="EduEH"></div>
     </div>
 
+
     <div id="login-container">
       <a href="/auth/google" id="login-button">Sign in with Google</a>
     </div>
@@ -214,7 +216,7 @@
       <textarea id="user-comment" placeholder="Write your comment here..." disabled></textarea>
 
       <button id="post-button" disabled>Post the comment</button>
-      <div id="not-logged" style="color: red;">You must be logged in to comment.</div>
+      <div id="not-logged">You must be logged in to comment.</div>
     </div>
 
     <div id="comments-container">
@@ -224,10 +226,10 @@
 
     <script>
       function getUrlParameter(name) {
-          name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-          var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-          var results = regex.exec(location.search);
-          return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
       }
 
       const userData = getUrlParameter('user');
@@ -238,10 +240,9 @@
           document.getElementById('login-button').style.display = 'none';
           document.getElementById('greeting').innerText = `Hello, ${user.displayName}!`;
           document.getElementById('greeting').style.display = 'inline';
-        
-              document.getElementById('user-comment').disabled = false;
-              document.getElementById('post-button').disabled = false;
-              document.getElementById('not-logged').style.display = 'none';
+          document.getElementById('user-comment').disabled = false;
+          document.getElementById('post-button').disabled = false;
+          document.getElementById('not-logged').style.display = 'none';
           } else {
               document.getElementById('user-comment').disabled = true;
               document.getElementById('post-button').disabled = true;
@@ -252,19 +253,19 @@
       updateUI();
 
       document.getElementById('post-button').addEventListener('click', function() {
-          const comment = document.getElementById('user-comment').value;
-          if (comment) {
-              const new_comment = document.createElement('div');
-              new_comment.className = 'comment'; 
-              new_comment.textContent = comment;
+        const comment = document.getElementById('user-comment').value;
+        if (comment) {
+            const new_comment = document.createElement('div');
+            new_comment.className = 'comment'; 
+            new_comment.textContent = comment;
 
-              document.getElementById('comments-container').appendChild(new_comment);
+            document.getElementById('comments-container').appendChild(new_comment);
 
-              document.getElementById('user-comment').value = '';
-          } else {
-              alert('Write a comment first.');
-          }
-      });
+            document.getElementById('user-comment').value = '';
+        } else {
+            alert('Write a comment first.');
+        }
+    });
     </script>
   </body>
 
