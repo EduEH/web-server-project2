@@ -28,7 +28,7 @@ app.use(passport.session());
 passport.use(new GoogleStrategy({ 
 clientID: '683472913075-7a0lp319cnm7q9rk274rr788jv67mg42.apps.googleusercontent.com',
 clientSecret: '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', 
-callbackURL: 'http://localhost:4000/auth/google/callback'}, 
+callbackURL: 'https://test.eddhirai.online/auth/google/callback'}, 
 function(accessToken, refreshToken, profile, cb) { 
 cb(null, profile); 
 } 
